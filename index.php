@@ -30,6 +30,7 @@
                     
                     ?>
                     <!-- First Blog Post -->
+                    <div>
                     <h2>
                         <a href="#"><?php echo $postTitle ?></a>
                     </h2>
@@ -44,6 +45,7 @@
                     <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                     <hr>
+                    </div>
                     <?php } ?>
 
                 
