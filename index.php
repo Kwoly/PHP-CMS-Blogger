@@ -12,7 +12,18 @@
 
             <!-- Blog Entries Column -->
             <div class="col-md-8">
+                <?php 
+                $query = "SELECT * FROM posts";
+                $selectAllPostsQuery = mysqli_query($connection, $query);
 
+                while($row = mysqli_fetch_assoc($selectAllPostsQuery)) {
+                    $postTitle =  $row['post_title'];
+                    $postAuthor =  $row['post_author'];
+                    $postDate =  $row['post_date'];
+                    $postImage =  $row['post_image'];
+                    $postContent =  $row['post_content'];
+                }
+                ?>
                 <h1 class="page-header">
                     Page Heading
                     <small>Secondary Text</small>
