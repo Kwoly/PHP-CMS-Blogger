@@ -44,13 +44,14 @@
                                 <input class="btn btn-primary" type="submit" name="submit" value="Add Category">                            
                             </div>
                           </form>
+
+                          <?php if(isset($_GET['edit'])) {
+                            $catId = $_GET['edit'];
+                            include "includes/edit-categories.php";
+                          } ?>
                         </div>
 
                         <div class="col-xs-6">
-                        <?php 
-                          $query = "SELECT * FROM categories";
-                          $selectAllCategories = mysqli_query($connection, $query);
-                        ?>
                           <table class="table table-bordered table-hover"><thead>
                             <tr>
                               <th>ID</th>
@@ -58,14 +59,33 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <?php 
+                            <?php // Find all categories
+                            $query = "SELECT * FROM categories";
+                            $selectAllCategories = mysqli_query($connection, $query);
+
                             while($row = mysqli_fetch_assoc($selectAllCategories)) {
                               $catTitle =  $row['cat_title'];
                               $catId =  $row['cat_id'];
                               echo "<tr>";
                               echo "<td>{$catId}</td>";
                               echo "<td>{$catTitle}</td>";
+                              echo "<td><a href='categories.php?delete={$catId}'><span class='fa fa-trash'></span></a></td>";
+                              echo "<td><a href='categories.php?edit={$catId}'><span class='fa fa-pencil-square-o'></span></a></td>";
                               echo "</tr>";
+                            }
+                            ?>
+
+                            <?php // Delete category query
+                            if(isset($_GET['delete'])) {
+                              $catId = $_GET['delete'];
+                            $query = "DELETE FROM categories WHERE cat_id = {$catId} ";
+                            $deleteCategoryQuery = mysqli_query($connection, $query);
+                            if(!$deleteCategoryQuery) {
+                              die("Query Failed " . mysqli_error());
+                            } else {
+                              header("Location: categories.php");
+                            }
+
                             }
                             ?>
                           </tbody>
