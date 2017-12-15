@@ -17,7 +17,25 @@
                         </h1>
 
                         <div class="col-xs-6">
-                          <form action="">
+                        <?php 
+                        
+                        if(isset($_POST['submit'])) {
+                          $catTitle = $_POST['cat_title'];
+
+                          if($catTitle == "" || empty($catTitle)) {
+                            echo "This field can not be empty";
+                          } else {
+                            $query = "INSERT INTO categories(cat_title) ";
+                            $query .= "VALUE('{$catTitle}') ";
+                            $createCategoryQuery = mysqli_query($connection, $query);
+                            if(!$createCategoryQuery) {
+                              die('Query Failed ' . mysqli_error());
+                            }
+                          }
+                        }
+                        
+                        ?>
+                          <form action="" method="post">
                             <div class="form-group">
                             <label for="cat_title">Category Title</label>
                                 <input class="form-control" type="text" name="cat_title">                            
@@ -26,6 +44,32 @@
                                 <input class="btn btn-primary" type="submit" name="submit" value="Add Category">                            
                             </div>
                           </form>
+                        </div>
+
+                        <div class="col-xs-6">
+                        <?php 
+                          $query = "SELECT * FROM categories";
+                          $selectAllCategories = mysqli_query($connection, $query);
+                        ?>
+                          <table class="table table-bordered table-hover"><thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Category Title</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php 
+                            while($row = mysqli_fetch_assoc($selectAllCategories)) {
+                              $catTitle =  $row['cat_title'];
+                              $catId =  $row['cat_id'];
+                              echo "<tr>";
+                              echo "<td>{$catId}</td>";
+                              echo "<td>{$catTitle}</td>";
+                              echo "</tr>";
+                            }
+                            ?>
+                          </tbody>
+                          </table>
                         </div>
                         <!-- <ol class="breadcrumb">
                             <li>
