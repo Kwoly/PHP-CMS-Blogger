@@ -19,10 +19,10 @@
                     </li>
                     <li>
                         <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
                     </li> -->
+                    <li>
+                        <a href="/php-cms-blogger/PHP-CMS-Blogger/admin">Admin</a>
+                    </li>
 
                     <?php 
                     
